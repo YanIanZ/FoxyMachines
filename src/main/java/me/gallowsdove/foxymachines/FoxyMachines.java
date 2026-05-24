@@ -39,6 +39,8 @@ public class FoxyMachines extends AbstractAddon {
     public void enable() {
         instance = this;
 
+        getLogger().log(java.util.logging.Level.INFO, "Maintained by iYanZ");
+
         Events.registerListener(new ChunkLoadListener());
         Events.registerListener(new ChunkLoaderListener());
         Events.registerListener(new SlimeWorldCompatListener());
