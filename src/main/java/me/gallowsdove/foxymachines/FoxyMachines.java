@@ -5,7 +5,6 @@ import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.mooy1.infinitylib.core.AbstractAddon;
 import io.github.mooy1.infinitylib.metrics.bukkit.Metrics;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdater;
-import lombok.SneakyThrows;
 import me.gallowsdove.foxymachines.abstracts.AbstractWand;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.commands.KillallCommand;
@@ -35,7 +34,6 @@ public class FoxyMachines extends AbstractAddon {
     }
 
     @Override
-    @SneakyThrows
     public void enable() {
         instance = this;
 
@@ -63,8 +61,8 @@ public class FoxyMachines extends AbstractAddon {
         ResearchSetup.INSTANCE.init();
 
         this.folderPath = getDataFolder().getAbsolutePath() + File.separator + "data-storage" + File.separator;
-        BerryBushTrimmer.loadTrimmedBlocks();
-        ForcefieldDome.loadDomeLocations();
+        try { BerryBushTrimmer.loadTrimmedBlocks(); } catch (Exception e) { getLogger().log(java.util.logging.Level.WARNING, "Failed to load trimmed blocks", e); }
+        try { ForcefieldDome.loadDomeLocations(); } catch (Exception e) { getLogger().log(java.util.logging.Level.WARNING, "Failed to load dome locations", e); }
         Scheduler.run(() -> ForcefieldDome.INSTANCE.setupDomes());
         Scheduler.repeat(240, 10, new QuestTicker());
         Scheduler.repeat(100, new GhostBlockTask());
@@ -83,11 +81,10 @@ public class FoxyMachines extends AbstractAddon {
         }
     }
 
-    @SneakyThrows
     @Override
     public void disable() {
-        BerryBushTrimmer.saveTrimmedBlocks();
-        ForcefieldDome.saveDomeLocations();
+        try { BerryBushTrimmer.saveTrimmedBlocks(); } catch (Exception e) { getLogger().log(java.util.logging.Level.WARNING, "Failed to save trimmed blocks", e); }
+        try { ForcefieldDome.saveDomeLocations(); } catch (Exception e) { getLogger().log(java.util.logging.Level.WARNING, "Failed to save dome locations", e); }
         if (getConfig().getBoolean("custom-mobs")) {
             CustomBoss.removeBossBars();
         }

@@ -1,8 +1,5 @@
 package me.gallowsdove.foxymachines.utils;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Setter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,26 +8,35 @@ import org.bukkit.block.Block;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import lombok.Getter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-@AllArgsConstructor
-@EqualsAndHashCode
 public class SimpleLocation {
 
-    @Getter @Setter
     private int x;
-    @Getter @Setter
     private int y;
-    @Getter @Setter
     private int z;
-    @Getter
     private final String worldUUID;
-    @Getter
     private final String prefix;
+
+    public int getX() { return x; }
+    public void setX(int x) { this.x = x; }
+    public int getY() { return y; }
+    public void setY(int y) { this.y = y; }
+    public int getZ() { return z; }
+    public void setZ(int z) { this.z = z; }
+    public String getWorldUUID() { return worldUUID; }
+    public String getPrefix() { return prefix; }
+
+    public SimpleLocation(int x, int y, int z, String worldUUID, String prefix) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.worldUUID = worldUUID;
+        this.prefix = prefix;
+    }
 
     @Nonnull
     public Block toBlock() {
@@ -82,6 +88,19 @@ public class SimpleLocation {
         return new NamespacedKey(FoxyMachines.getInstance(), prefix + "_z");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SimpleLocation that)) return false;
+        return x == that.x && y == that.y && z == that.z && worldUUID.equals(that.worldUUID) && prefix.equals(that.prefix);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(x, y, z, worldUUID, prefix);
+    }
+
+    @Override
     public String toString() {
         return "X: " + this.x + " Y: " + this.y + " Z: " + this.z;
     }

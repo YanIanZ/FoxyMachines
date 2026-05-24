@@ -23,9 +23,9 @@ import java.util.UUID;
 public class SpongeWand extends AbstractWand {
     public SpongeWand() {
         super(Items.SPONGE_WAND, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                Items.NUCLEAR_SALT, Items.WIRELESS_TRANSMITTER, Items.NUCLEAR_SALT,
-                Items.DEMONIC_PLATE, SlimefunItems.PROGRAMMABLE_ANDROID_2, Items.DEMONIC_PLATE,
-                Items.NUCLEAR_SALT, Items.COMPRESSED_SPONGE, Items.NUCLEAR_SALT
+                Items.NUCLEAR_SALT.item(), Items.WIRELESS_TRANSMITTER.item(), Items.NUCLEAR_SALT.item(),
+                Items.DEMONIC_PLATE.item(), SlimefunItems.PROGRAMMABLE_ANDROID_2.item(), Items.DEMONIC_PLATE.item(),
+                Items.NUCLEAR_SALT.item(), Items.COMPRESSED_SPONGE.item(), Items.NUCLEAR_SALT.item()
         });
     }
 

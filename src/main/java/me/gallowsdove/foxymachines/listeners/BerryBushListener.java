@@ -35,7 +35,7 @@ public class BerryBushListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void onSheepShear(@Nonnull PlayerShearEntityEvent e) {
-        if (SlimefunUtils.isItemSimilar(e.getItem(), Items.BERRY_BUSH_TRIMMER.getItem().getItem(), true)) {
+        if (SlimefunUtils.isItemSimilar(e.getItem(), Items.BERRY_BUSH_TRIMMER.item(), true)) {
             e.setCancelled(true);
         }
     }

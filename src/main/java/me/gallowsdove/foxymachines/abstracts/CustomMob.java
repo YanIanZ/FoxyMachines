@@ -1,7 +1,6 @@
 package me.gallowsdove.foxymachines.abstracts;
 
 import io.github.mooy1.infinitylib.common.Events;
-import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 
 import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
@@ -53,12 +52,10 @@ public abstract class CustomMob {
 
     private static final NamespacedKey KEY = new NamespacedKey(FoxyMachines.getInstance(), "mob");
 
-    @Getter
     @Nonnull
     private final String id;
     @Nonnull
     private final String name;
-    @Getter
     @Nonnull
     private final EntityType type;
     private final int health;
@@ -80,7 +77,7 @@ public abstract class CustomMob {
         LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, this.type);
         PersistentDataAPI.setString(entity, KEY, this.id);
 
-        Objects.requireNonNull(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(this.health);
+        Objects.requireNonNull(entity.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(this.health);
         entity.setHealth(this.health);
         entity.setCustomName(this.name);
         entity.setCustomNameVisible(true);
@@ -139,6 +136,12 @@ public abstract class CustomMob {
         entities.remove(uuid);
         MOB_CACHE.put(this, entities);
     }
+
+    @Nonnull
+    public String getId() { return id; }
+
+    @Nonnull
+    public EntityType getType() { return type; }
 
     public static void debug() {
         Bukkit.broadcastMessage("CACHE:");
